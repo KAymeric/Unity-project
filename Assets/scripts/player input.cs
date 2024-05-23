@@ -14,6 +14,9 @@ public class InputSystemFirstPersonCharacter : MonoBehaviour
     [SerializeField] private float movementSpeed = 2.0f;
     [SerializeField] public float lookSensitivity = 1.0f;
     [SerializeField] public float jumpPower = 8.0f;
+    [SerializeField] public float cooldownBaseValue = 1.0f;
+    [SerializeField] public GameObject munition;
+    [SerializeField] public float throwForce = 40f;
 
     private float xRotation = 0f;
 
@@ -21,6 +24,7 @@ public class InputSystemFirstPersonCharacter : MonoBehaviour
     private Vector3 velocity;
     public float gravity = -9.81f;
     private bool grounded;
+    private float cooldown;
 
     private void Awake()
     {
@@ -44,6 +48,7 @@ public class InputSystemFirstPersonCharacter : MonoBehaviour
         DoLooking();
         DoJump();
         DoSprint();
+        DoFire();
     }
 
     private void DoLooking()
@@ -70,7 +75,6 @@ public class InputSystemFirstPersonCharacter : MonoBehaviour
 
         Vector2 movement = GetPlayerMovement();
         Vector3 move = transform.right * movement.x + transform.forward * movement.y;
-        Debug.Log(move);
         controller.Move(move * movementSpeed * Time.deltaTime);
 
         velocity.y += gravity * Time.deltaTime;
@@ -98,6 +102,17 @@ public class InputSystemFirstPersonCharacter : MonoBehaviour
         {
             movementSpeed = 2f;
         }
+    }
+
+    private void DoFire()
+    {
+        if (inputActions.FPSController.fire.ReadValue<float>() > 0 && cooldown <= 0)
+        {
+            GameObject ball = Instantiate(munition,cam.transform.position, cam.transform.rotation);
+            ball.GetComponent<Rigidbody>().velocity  = cam.transform.forward * throwForce;
+            cooldown = cooldownBaseValue;
+        }
+        cooldown -= Time.deltaTime;
     }
 
     private void OnDisable()

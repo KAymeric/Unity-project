@@ -62,6 +62,15 @@ public partial class @Custominputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""202e0b94-5786-4fcf-8c88-0b8984ea7b1b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -152,6 +161,17 @@ public partial class @Custominputs: IInputActionCollection2, IDisposable
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""da0c0b93-a50d-4a90-963f-1723b1c4f4fb"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -164,6 +184,7 @@ public partial class @Custominputs: IInputActionCollection2, IDisposable
         m_FPSController_Look = m_FPSController.FindAction("Look", throwIfNotFound: true);
         m_FPSController_jump = m_FPSController.FindAction("jump", throwIfNotFound: true);
         m_FPSController_sprint = m_FPSController.FindAction("sprint", throwIfNotFound: true);
+        m_FPSController_fire = m_FPSController.FindAction("fire", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -229,6 +250,7 @@ public partial class @Custominputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_FPSController_Look;
     private readonly InputAction m_FPSController_jump;
     private readonly InputAction m_FPSController_sprint;
+    private readonly InputAction m_FPSController_fire;
     public struct FPSControllerActions
     {
         private @Custominputs m_Wrapper;
@@ -237,6 +259,7 @@ public partial class @Custominputs: IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_FPSController_Look;
         public InputAction @jump => m_Wrapper.m_FPSController_jump;
         public InputAction @sprint => m_Wrapper.m_FPSController_sprint;
+        public InputAction @fire => m_Wrapper.m_FPSController_fire;
         public InputActionMap Get() { return m_Wrapper.m_FPSController; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -258,6 +281,9 @@ public partial class @Custominputs: IInputActionCollection2, IDisposable
             @sprint.started += instance.OnSprint;
             @sprint.performed += instance.OnSprint;
             @sprint.canceled += instance.OnSprint;
+            @fire.started += instance.OnFire;
+            @fire.performed += instance.OnFire;
+            @fire.canceled += instance.OnFire;
         }
 
         private void UnregisterCallbacks(IFPSControllerActions instance)
@@ -274,6 +300,9 @@ public partial class @Custominputs: IInputActionCollection2, IDisposable
             @sprint.started -= instance.OnSprint;
             @sprint.performed -= instance.OnSprint;
             @sprint.canceled -= instance.OnSprint;
+            @fire.started -= instance.OnFire;
+            @fire.performed -= instance.OnFire;
+            @fire.canceled -= instance.OnFire;
         }
 
         public void RemoveCallbacks(IFPSControllerActions instance)
@@ -297,5 +326,6 @@ public partial class @Custominputs: IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
+        void OnFire(InputAction.CallbackContext context);
     }
 }
