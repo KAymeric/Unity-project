@@ -12,9 +12,11 @@ GameObject:
   - component: {fileID: 5366448462229493850}
   - component: {fileID: 2638827073184751953}
   - component: {fileID: 8180605963191368741}
-  - component: {fileID: 3700168150857133934}
   - component: {fileID: 6501671035220586448}
-  - component: {fileID: 790857959886490097}
+  - component: {fileID: 606273188763004705}
+  - component: {fileID: 3338618879304001884}
+  - component: {fileID: 5958027410558661071}
+  - component: {fileID: 8066194002323701022}
   m_Layer: 0
   m_Name: soldier
   m_TagString: Untagged
@@ -112,7 +114,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1.48, z: 1}
   m_Center: {x: 0, y: 0.25, z: 0}
---- !u!54 &3700168150857133934
+--- !u!114 &6501671035220586448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 761980478750226251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 832a8df097822c147b1972c7a1eb5a8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 3853822403019886404}
+  movementSpeed: 2
+  lookSensitivity: 1
+  jumpPower: 8
+  cooldownBaseValue: 1
+  munition: {fileID: 8209312909852798356, guid: 3f10c29b8b835d44b98cce8119b98683, type: 3}
+  throwForce: 18
+  gravity: -9.81
+--- !u!54 &606273188763004705
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,27 +161,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &6501671035220586448
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 761980478750226251}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 832a8df097822c147b1972c7a1eb5a8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cam: {fileID: 3853822403019886404}
-  movementSpeed: 2
-  lookSensitivity: 1
-  jumpPower: 8
-  cooldownBaseValue: 1
-  munition: {fileID: 8209312909852798356, guid: 3f10c29b8b835d44b98cce8119b98683, type: 3}
-  throwForce: 18
-  gravity: -9.81
---- !u!143 &790857959886490097
+--- !u!143 &3338618879304001884
 CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -185,6 +187,36 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5958027410558661071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 761980478750226251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b1a0c73e6659a24f9000c4e6cd02017, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canva: {fileID: 0}
+--- !u!114 &8066194002323701022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 761980478750226251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb55418f199cd574d9ab4a7b73539c44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  base_health: 10
+  velocity_resistance: 10
+  controller: {fileID: 3338618879304001884}
+  healthbar: {fileID: 0}
+  canva: {fileID: 0}
 --- !u!1 &4043669330147979411
 GameObject:
   m_ObjectHideFlags: 0
