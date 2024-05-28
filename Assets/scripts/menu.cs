@@ -71,7 +71,6 @@ public class menu : MonoBehaviour
 
     public void RestartGame()
     {
-        string currentSceneName = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene(currentSceneName);
+        SceneManager.LoadScene("lvl1");
     }
 }
