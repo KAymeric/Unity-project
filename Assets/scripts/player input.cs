@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +18,7 @@ public class InputSystemFirstPersonCharacter : MonoBehaviour
     [SerializeField] public float cooldownBaseValue = 1.0f;
     [SerializeField] public GameObject munition;
     [SerializeField] public float throwForce = 40f;
+    [SerializeField] public int maxballs = 10;
 
     private float xRotation = 0f;
 
@@ -25,10 +27,12 @@ public class InputSystemFirstPersonCharacter : MonoBehaviour
     public float gravity = -9.81f;
     private bool grounded;
     private float cooldown;
+    private List<GameObject> balls ;
 
     private void Awake()
     {
         inputActions = new Custominputs();
+        balls = new List<GameObject>();
     }
     private void Start()
     {
@@ -96,11 +100,11 @@ public class InputSystemFirstPersonCharacter : MonoBehaviour
     {
         if (inputActions.FPSController.sprint.ReadValue<float>() > 0)
         {
-            movementSpeed = 5f;
+            movementSpeed = 8f;
         }
         else
         {
-            movementSpeed = 2f;
+            movementSpeed = 5f;
         }
     }
 
@@ -111,6 +115,12 @@ public class InputSystemFirstPersonCharacter : MonoBehaviour
             GameObject ball = Instantiate(munition,cam.transform.position, cam.transform.rotation);
             ball.GetComponent<Rigidbody>().velocity  = cam.transform.forward * throwForce;
             cooldown = cooldownBaseValue;
+            balls.Add(ball);
+        }
+        if (balls.Count > maxballs)
+        {
+            Destroy(balls[0]);
+            balls.RemoveAt(0);
         }
         cooldown -= Time.deltaTime;
     }
